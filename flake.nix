@@ -26,7 +26,8 @@
           inherit nativeBuildInputs;
 
           buildPhase = ''
-            ${pkgs.gcc14}/bin/gcc $src/main.c -o cinder
+            ls $src/**/*.c
+            ${pkgs.gcc14}/bin/gcc -I$src $src/*.c $src/**/*.c -o cinder
           '';
 
           installPhase = ''

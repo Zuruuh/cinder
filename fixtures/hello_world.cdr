@@ -1,0 +1,10 @@
+#!/usr/bin/env cat
+# vim: ft=python
+
+def main():
+    print("Hello, World!")
+
+    if True:
+        print("👋")
+
+    return 0
