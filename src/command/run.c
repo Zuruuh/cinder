@@ -7,7 +7,7 @@
 #include <string.h>
 
 char *stringify_lexer_token(LexerToken token, char *source) {
-  char *repr;
+  char *repr = NULL;
   switch (token.kind) {
   case Identifier:
     repr = "Identifier";

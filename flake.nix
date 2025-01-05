@@ -27,7 +27,7 @@
 
           buildPhase = ''
             ls $src/**/*.c
-            ${pkgs.gcc14}/bin/gcc -I$src $src/*.c $src/**/*.c -o cinder
+            ${pkgs.gcc14}/bin/gcc -Wall -Werror -I$src $src/*.c $src/**/*.c -o cinder
           '';
 
           installPhase = ''

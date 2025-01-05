@@ -18,7 +18,7 @@ typedef struct {
   };
 } ReadFileResult;
 
-char *stringify_file_error(ReadFileError err);
+const char *stringify_file_error(ReadFileError err);
 
 ReadFileResult read_file(char *file);
 

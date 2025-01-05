@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-char *stringify_file_error(ReadFileError err) {
+const char *stringify_file_error(ReadFileError err) {
   switch (err) {
   case CouldNotOpenFile:
     return "Could not open file";
@@ -13,6 +13,8 @@ char *stringify_file_error(ReadFileError err) {
   case DidNotReadExpectedBytes:
     // TODO: recheck if this can even happen ?
     return "Did not read expected bytes count ?";
+  default:
+    return "Unhandled case";
   }
 }
 
