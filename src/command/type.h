@@ -1,11 +1,11 @@
-#ifndef COMMAND_TYPE_H
-#define COMMAND_TYPE_H
+#pragma once
 
 typedef enum {
   None,
   Help,
   Version,
   Run,
+  Lex,
 } CommandType;
 
 typedef struct {
@@ -14,9 +14,11 @@ typedef struct {
     struct {
       char *file;
     } run;
+
+    struct {
+      char *file;
+    } lex;
   } data;
 } Command;
 
 CommandType parse_command(char *command);
-
-#endif // COMMAND_TYPE_H

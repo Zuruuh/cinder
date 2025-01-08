@@ -1,22 +1,21 @@
-#ifndef LEXER_H
-#define LEXER_H
+#pragma once
 
 #include <stddef.h>
 typedef enum {
   // User-defined tokens
-  Identifier,
+  LexerTokenKindIdentifier,
   // Reserved tokens
-  Keyword,
+  LexerTokenKindKeyword,
   // Parenthesis, Curly braces, etc...
-  Punctuation,
+  LexerTokenKindPunctuation,
   // +, *, -, =, etc...
-  Operator,
+  LexerTokenKindOperator,
   // "strings", numbers (12, -42),
-  StringLiteral,
-  NumericLiteral,
+  LexerTokenKindStringLiteral,
+  LexerTokenKindNumericLiteral,
   // # Comments
-  Comment,
-  Whitespace,
+  LexerTokenKindComment,
+  LexerTokenKindWhitespace,
 } LexerTokenKind;
 
 typedef struct {
@@ -43,5 +42,3 @@ typedef struct {
 char *read_span(char *source, Span *span);
 Program lex(char *source);
 char *stringify_lexer_token(LexerToken token, char *source);
-
-#endif // LEXER_H

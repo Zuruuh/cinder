@@ -1,11 +1,10 @@
-#ifndef FS_H
-#define FS_H
+#pragma once
 
 #include <stdio.h>
 typedef enum {
-  CouldNotOpenFile,
-  NotEnoughMemory,
-  DidNotReadExpectedBytes,
+  ReadFileErrorCouldNotOpenFile,
+  ReadFileErrorNotEnoughMemory,
+  ReadFileErrorDidNotReadExpectedBytes,
 } ReadFileError;
 
 typedef enum { Ok, Err } ResultType;
@@ -21,5 +20,3 @@ typedef struct {
 const char *stringify_file_error(ReadFileError err);
 
 ReadFileResult read_file(char *file);
-
-#endif // FS_H

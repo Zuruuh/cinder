@@ -6,11 +6,11 @@
 
 const char *stringify_file_error(ReadFileError err) {
   switch (err) {
-  case CouldNotOpenFile:
+  case ReadFileErrorCouldNotOpenFile:
     return "Could not open file";
-  case NotEnoughMemory:
+  case ReadFileErrorNotEnoughMemory:
     return "Not enough memory to allocate!";
-  case DidNotReadExpectedBytes:
+  case ReadFileErrorDidNotReadExpectedBytes:
     // TODO: recheck if this can even happen ?
     return "Did not read expected bytes count ?";
   default:
@@ -22,7 +22,7 @@ ReadFileResult read_file(char *file) {
   FILE *fptr = fopen(file, "r");
 
   if (fptr == NULL) {
-    ReadFileResult result = {.type = Err, .err = CouldNotOpenFile};
+    ReadFileResult result = {.type = Err, .err = ReadFileErrorCouldNotOpenFile};
 
     return result;
   }
@@ -35,7 +35,7 @@ ReadFileResult read_file(char *file) {
   if (buffer == NULL) {
     free(buffer);
     fclose(fptr);
-    return (ReadFileResult){.type = Err, .err = NotEnoughMemory};
+    return (ReadFileResult){.type = Err, .err = ReadFileErrorNotEnoughMemory};
   }
 
   size_t bytes_read = fread(buffer, 1, file_size, fptr);
@@ -44,7 +44,8 @@ ReadFileResult read_file(char *file) {
     free(buffer);
     fclose(fptr);
 
-    return (ReadFileResult){.type = Err, .err = DidNotReadExpectedBytes};
+    return (ReadFileResult){.type = Err,
+                            .err = ReadFileErrorDidNotReadExpectedBytes};
   }
 
   buffer[bytes_read] = '\0';

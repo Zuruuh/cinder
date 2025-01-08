@@ -35,7 +35,7 @@ size_t consume_until(Lexer *lexer, const char target) {
 LexerToken lex_comment(Lexer *lexer) {
 
   LexerToken token = (LexerToken){
-      .kind = Comment,
+      .kind = LexerTokenKindComment,
       .span = (Span){.from = lexer->index,
                      .to = lexer->index + consume_until(lexer, '\n')}};
 
@@ -60,7 +60,7 @@ LexerToken lex_whitespace(Lexer *lexer) {
 
   // printf("Parsed whitespace from %zu->%zu\n", from, lexer->index);
 
-  return (LexerToken){.kind = Whitespace,
+  return (LexerToken){.kind = LexerTokenKindWhitespace,
                       .span = (Span){.from = from, .to = lexer->index}};
 }
 
@@ -110,9 +110,9 @@ LexerToken lex_word(Lexer *lexer) {
   {
     char *content = read_span(lexer->source, &span);
     if (is_reserved_keyword(content)) {
-      kind = Keyword;
+      kind = LexerTokenKindKeyword;
     } else {
-      kind = Identifier;
+      kind = LexerTokenKindIdentifier;
     }
   }
 
@@ -144,7 +144,7 @@ LexerToken lex_numeric_literal(Lexer *lexer) {
 
   // printf("From %zu To %zu", from, lexer->index);
 
-  return (LexerToken){.kind = NumericLiteral,
+  return (LexerToken){.kind = LexerTokenKindNumericLiteral,
                       .span = {.from = from, .to = lexer->index}};
 }
 
@@ -161,7 +161,7 @@ LexerToken lex_string_literal(Lexer *lexer, char string_delimiter) {
     }
   }
 
-  return (LexerToken){.kind = StringLiteral,
+  return (LexerToken){.kind = LexerTokenKindStringLiteral,
                       .span = {.from = from, .to = lexer->index}};
 }
 
@@ -196,8 +196,10 @@ Program lex(char *source) {
     case '{':
     case '}':
     case ':':
+    case ',':
+    case '=':
       tokens[token_index++] =
-          (LexerToken){.kind = Punctuation,
+          (LexerToken){.kind = LexerTokenKindPunctuation,
                        .span = {.to = lexer.index, .from = lexer.index}};
 
       break;

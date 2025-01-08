@@ -2,4 +2,4 @@
 
 #include "type.h"
 
-int run_file(Command command);
+int lex_file(Command command);

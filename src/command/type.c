@@ -14,5 +14,9 @@ CommandType parse_command(char *command) {
     return Run;
   }
 
+  if (strcmp(command, "lex") == 0) {
+    return Lex;
+  }
+
   return None;
 };

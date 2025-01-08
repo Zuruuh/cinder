@@ -1,3 +1,4 @@
+#include "command/lex.h"
 #include "command/run.h"
 #include "command/type.h"
 #include <stddef.h>
@@ -21,6 +22,14 @@ int main(int argc, char *argv[]) {
       return 1;
     }
     command.data.run.file = argv[2];
+
+  case Lex:
+    if (argc != 3) {
+      printf("You must specify a file to lex\n");
+
+      return 1;
+    }
+    command.data.lex.file = argv[2];
   default:
     break;
   }
@@ -36,9 +45,12 @@ int main(int argc, char *argv[]) {
            "Usage:\n"
            "> cinder version # Print version\n"
            "> cinder help # Print this message\n"
-           "> cinder run [file] # Run a file");
+           "> cinder run [file] # Run a file\n"
+           "> cinder lex [file] # Print a file's lexed tokens\n");
     return 0;
   case Run:
     return run_file(command);
+  case Lex:
+    return lex_file(command);
   }
 }

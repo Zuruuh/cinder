@@ -1,8 +1,10 @@
 #!/usr/bin/env cat
 # vim: ft=python
+# See https://docs.python.org/3/reference/grammar.html
 
 def main():
-    print("Hello, World!")
+    hello = "Hello, \"'World'"
+    print(hello)
 
     if True:
         print("👋")
