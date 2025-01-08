@@ -1,7 +1,6 @@
 #pragma once
 
-// #include "<glib-2.0/glib.h>"
-#include <glib.h>
+#include "../hash_table.h"
 
 typedef enum {
   StatementAssignement,
@@ -25,5 +24,5 @@ typedef struct {
 } Statement;
 
 typedef struct {
-  // HashTable registry;
+  HashTable registry;
 } Scope;

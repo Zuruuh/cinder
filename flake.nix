@@ -10,26 +10,11 @@
         inherit system;
       };
 
-      nativeBuildInputs = with pkgs;[
-        clang-tools
-        clang
-        gcc
-        stdenv.cc.cc
-        stdenv.cc.cc.lib
-        stdenv.cc.libc
-        stdenv.cc.libc_dev
-        criterion
-        glib
-        pkg-config
-      ];
-
-      env = {
-        LDFLAGS = "-L${pkgs.gcc13.libc}/lib";
-      };
+      nativeBuildInputs = with pkgs;[ gcc14 ];
     in
     {
       devShell = pkgs.mkShell {
-        inherit nativeBuildInputs env;
+        inherit nativeBuildInputs;
       };
 
       packages = {
@@ -38,11 +23,11 @@
           version = "0.1.0";
           src = ./src;
 
-          inherit nativeBuildInputs env;
+          inherit nativeBuildInputs;
 
           buildPhase = ''
             ls $src/**/*.c
-            ${pkgs.stdenv.cc.cc}/bin/gcc $(${pkgs.pkg-config}/bin/pkg-config --libs --cflags glib-2.0) -Wall -Werror -I$src $src/*.c $src/**/*.c -o cinder
+            ${pkgs.gcc14}/bin/gcc -Wall -Werror -I$src $src/*.c $src/**/*.c -o cinder
           '';
 
           installPhase = ''
